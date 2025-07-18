@@ -43,11 +43,19 @@ class ConfigManager:
         return {
             'hardware': {
                 'motors': {
-                    'pololu_shield': {
-                        'left_motor_pin': 18,
-                        'right_motor_pin': 19,
-                        'enable_pin': 12,
-                        'max_speed': 100
+                    'pololu_m3h550': {
+                        'i2c_bus': 1,  # Standard I2C bus on Raspberry Pi
+                        'i2c_address': 16,
+                        'max_speed': 800,
+                        'motor_1_acceleration': 140,
+                        'motor_1_deceleration': 300,
+                        'motor_1_reversed': False,
+                        'motor_2_acceleration': 140,
+                        'motor_2_deceleration': 300,
+                        'motor_2_reversed': False,
+                        'motor_3_acceleration': 140,
+                        'motor_3_deceleration': 300,
+                        'motor_3_reversed': False
                     }
                 },
                 'sensors': {

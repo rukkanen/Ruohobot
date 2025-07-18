@@ -1,0 +1,20 @@
+# Ruohobot Dependencies
+
+# Core dependencies
+PyYAML>=6.0
+pyserial>=3.5
+
+# Raspberry Pi hardware communication
+smbus2>=0.4.0
+
+# Pololu Motoron motor controller
+# Install with: pip install git+https://github.com/pololu/motoron-python.git
+# motoron>=2.0.0
+
+# Optional: For enhanced I2C performance
+# RPi.GPIO>=0.7.0  # Only on Raspberry Pi
+
+# Development dependencies (optional)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
