@@ -10,9 +10,13 @@ import serial
 import json
 from typing import Dict, Any, Optional
 
-from .motors import MotorController
-from .sensors import SensorManager
-from .external_modules import ExternalModuleManager
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from hardware.motors import MotorController
+from hardware.sensors import SensorManager
+from hardware.external_modules import ExternalModuleManager
 
 
 class HardwareManager:
@@ -68,6 +72,22 @@ class HardwareManager:
             'external_modules': self.external_modules.get_status(),
             'low_power_mode': self.low_power_mode
         }
+    
+    def get_tilt_angle(self) -> float:
+        """Get current tilt angle from IMU sensor"""
+        return self.sensors.get_tilt_angle()
+    
+    def get_battery_voltage(self) -> float:
+        """Get current battery voltage"""
+        return self.sensors.get_battery_voltage()
+    
+    def get_distance_readings(self) -> Dict[str, float]:
+        """Get distance readings from external scanner"""
+        return self.external_modules.get_distance_readings()
+    
+    def check_sensor_communication(self) -> bool:
+        """Check if external sensors are communicating properly"""
+        return self.external_modules.check_sensor_communication()
     
     def shutdown(self):
         """Shutdown all hardware components"""
