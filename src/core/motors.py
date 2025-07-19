@@ -159,6 +159,7 @@ class MotorController:
             linear_speed: Forward/backward speed (-1.0 to 1.0)
             angular_speed: Turning speed (-1.0 to 1.0, negative = left)
         """
+        self.logger.debug(f"Setting velocity: linear={linear_speed}, angular={angular_speed}")
         # Convert normalized speeds to motor speeds
         max_motor_speed = self.max_speed
         

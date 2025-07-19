@@ -45,6 +45,7 @@ class Robot:
     
     def _connect_subsystems(self):
         """Connect subsystems for inter-communication"""
+        self.logger.info("Connecting subsystems...")
         # Safety system has emergency stop authority
         self.safety.set_emergency_callback(self._emergency_stop)
         
@@ -139,10 +140,14 @@ class Robot:
     
     def _handle_command(self, command: Dict[str, Any]):
         """Handle commands from communication system"""
+        # {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+        self.logger.info(f"robot._handle_command: Received command: {command}")
         cmd_type = command.get('type')
-        self._last_command = cmd_type  # Track last command for telemetry
-        
+        self.logger.info(f"Command type: {cmd_type}")
+        self._last_command = cmd_type  # Track last command for telemetry                
+
         if cmd_type == 'move':
+            self.logger.info(f"Handling move command: {command}")
             self._handle_move_command(command)
         elif cmd_type == 'state_change':
             # Handle both formats: {"type": "state_change", "state": "value"} and {"type": "state_change", "data": "value"}
@@ -158,12 +163,19 @@ class Robot:
     
     def _handle_move_command(self, command: Dict[str, Any]):
         """Handle movement commands"""
-        if self.state_machine.current_state == 'manual_control':
+        self.logger.info(f"_handle_move_command: Current state is {self.state_machine.current_state}")
+        
+        if self.state_machine.current_state.value == 'manual_control':
             # Extract data from command - handle both formats for compatibility
             data = command.get('data', command)  # Use 'data' field if present, otherwise use command directly
             speed = data.get('speed', 0)
             direction = data.get('direction', 0)
+            self.logger.info(f"_handle_move_command: Extracted speed={speed}, direction={direction}")
+            self.logger.info(f"_handle_move_command: Calling motors.set_velocity({speed}, {direction})")
             self.hardware.motors.set_velocity(speed, direction)
+            self.logger.info(f"_handle_move_command: Motor command sent successfully")
+        else:
+            self.logger.warning(f"_handle_move_command: Cannot move in state '{self.state_machine.current_state}', need 'manual_control'")
     
     def _emergency_stop(self):
         """Emergency stop procedure"""

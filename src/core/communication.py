@@ -56,7 +56,10 @@ class CommunicationManager:
     
     def set_command_callback(self, callback: Callable):
         """Set callback for received commands"""
+        self.logger.info(f"Setting command callback: {callback}")
         self.command_callback = callback
+        self.logger.debug(f"Command callback set successfully: {self.command_callback}")
+    
     
     def update(self):
         """Update communication system"""
@@ -90,6 +93,7 @@ class CommunicationManager:
                         self._serve_404()
                 
                 def do_POST(self):
+                    comm_manager.logger.info(f"POST request to {self.path}")
                     if self.path.startswith('/api/'):
                         self._handle_api_post()
                     else:
@@ -119,6 +123,7 @@ class CommunicationManager:
                     self.wfile.write(json.dumps(response).encode())
                 
                 def _handle_api_post(self):
+                    comm_manager.logger.info(f"Handling API POST to {self.path}")
                     content_length = int(self.headers['Content-Length'])
                     post_data = self.rfile.read(content_length)
                     
@@ -303,10 +308,14 @@ class CommunicationManager:
         self.logger.info(f"Received command: {command}")
         
         if self.command_callback:
+            self.logger.info(f"Command callback exists, calling it with: {command}")
             try:
                 self.command_callback(command)
+                self.logger.info("Command callback executed successfully")
             except Exception as e:
                 self.logger.error(f"Error executing command: {e}")
+        else:
+            self.logger.warning("No command callback set - command not processed")
     
     def _update_telemetry(self):
         """Update telemetry data"""

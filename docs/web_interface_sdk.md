@@ -1,8 +1,9 @@
 # Ruohobot Web Interface SDK Guide
 
-**Version:** 1.0  
-**Date:** July 18, 2025  
-**Author:** Ruohobot Development Team
+**Version:** 1.1  
+**Date:** July 19, 2025  
+**Author:** Ruohobot Development Team  
+**Last Updated:** Fixed WASD controls, added management scripts, updated command formats
 
 ## Table of Contents
 
@@ -55,6 +56,27 @@ The Ruohobot Web Interface provides a comprehensive HTTP-based API and web dashb
 
 ### Quick Start
 
+#### **Using Management Scripts (Recommended)**
+The robot includes convenient shell scripts for easy management:
+
+```bash
+# Start robot interactively (see logs in terminal)
+./run_bot.sh
+
+# Start robot in background (daemon mode)  
+./run_bot_bg.sh
+
+# Check robot status and web interface
+./status_bot.sh
+
+# Stop robot safely
+./kill_bot.sh
+
+# Test motors separately
+./test_motors.sh
+```
+
+#### **Manual Start (Alternative)**
 1. **Start the Robot System**:
    ```bash
    cd /path/to/Ruohobot
@@ -150,7 +172,7 @@ Send control commands to the robot.
 ```json
 {
     "type": "state_change",
-    "state": "idle|manual_control|autonomous|emergency_stop"
+    "data": "idle|manual_control|autonomous|emergency_stop"
 }
 ```
 
@@ -229,6 +251,27 @@ The web interface includes these interactive elements:
 - **Backward Button**: Moves robot backward
 - **Left/Right Buttons**: Turns robot left or right
 - **Stop Button**: Immediately stops all motors
+
+#### **WASD Keyboard Controls**
+Interactive keyboard control for real-time robot operation:
+
+- **W Key**: Move forward (speed: 400)
+- **S Key**: Move backward (speed: -400)
+- **A Key**: Turn left (direction: -400)
+- **D Key**: Turn right (direction: 400)  
+- **Space**: Stop all motors
+
+**Usage Requirements:**
+1. Robot must be in **Manual Control** mode
+2. Click the blue "WASD Control Zone" to give focus
+3. Use keyboard keys for real-time control
+4. Visual feedback shows when control area is active
+
+**Implementation Details:**
+- Prevents browser default behavior (page scrolling)
+- Console logging for debugging
+- Event prevention for smooth control
+- Focus management for reliable input
 
 #### **Safety Controls**
 - **Emergency Stop**: Large red button for immediate halt
@@ -680,6 +723,45 @@ class TelemetryLogger:
    curl http://localhost:8080/status
    ```
 
+#### **WASD Keyboard Controls Not Working**
+
+**Symptoms**: Keyboard keys W/A/S/D don't control the robot
+
+**Common Causes & Solutions**:
+
+1. **Robot Not in Manual Control Mode**:
+   - Click "Manual Control" button first
+   - Check robot state in status display
+   - Robot must show "MANUAL_CONTROL" state
+
+2. **WASD Control Area Not Focused**:
+   - Click the blue "WASD Control Zone" box
+   - Area should turn light blue when active
+   - Text should change to "ACTIVE"
+
+3. **Browser Focus Issues**:
+   - Click directly on the control area
+   - Avoid clicking other page elements
+   - Try refreshing the page
+
+4. **Command Format Issues** (Fixed in recent versions):
+   - Ensure you're using updated robot software
+   - Old versions had command format mismatches
+   - Update robot code if WASD still doesn't work
+
+5. **JavaScript Console Errors**:
+   - Press F12 to open developer tools
+   - Check Console tab for errors
+   - Should see "W pressed - Forward" style messages
+
+6. **Testing WASD Commands**:
+   ```bash
+   # Test W key command manually
+   curl -X POST http://ROBOT_IP:8080/api/command \
+     -H "Content-Type: application/json" \
+     -d '{"type": "move", "data": {"speed": 400, "direction": 0}}'
+   ```
+
 #### **Commands Not Working**
 
 1. **Check Robot State**: Robot must be in appropriate state (not emergency stop)
@@ -703,14 +785,35 @@ class TelemetryLogger:
 
 ### Debug Commands
 
+#### **Using Management Scripts**
+```bash
+# Check robot status (includes web interface test)
+./status_bot.sh
+
+# Stop robot safely
+./kill_bot.sh
+
+# Start robot with verbose output  
+./run_bot.sh
+
+# Test motors separately
+./test_motors.sh
+```
+
+#### **Manual API Testing**
 ```bash
 # Check robot status
 curl -s http://ROBOT_IP:8080/status | python3 -m json.tool
 
-# Test movement command
+# Test movement command (current format)
 curl -X POST http://ROBOT_IP:8080/api/command \
   -H "Content-Type: application/json" \
   -d '{"type": "move", "data": {"speed": 200, "direction": 0}}'
+
+# Test state change (current format)
+curl -X POST http://ROBOT_IP:8080/api/command \
+  -H "Content-Type: application/json" \
+  -d '{"type": "state_change", "data": "manual_control"}'
 
 # Get detailed telemetry
 curl -s http://ROBOT_IP:8080/api/telemetry | python3 -m json.tool
