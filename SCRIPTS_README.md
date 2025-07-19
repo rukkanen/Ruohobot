@@ -45,6 +45,20 @@ This directory contains convenient shell scripts to manage your Ruohobot.
 - Tests web interface connectivity
 - Shows current robot state and recent logs
 
+### 🔧 `test_motors.sh`
+**Motor testing interface** - Interactive motor testing and diagnostics
+```bash
+./test_motors.sh
+```
+- Automatically stops robot if running (exclusive motor access needed)
+- Individual motor testing
+- Sequential motor tests
+- Manual motor control interface
+- Differential drive testing
+- Motor status monitoring
+- Emergency stop functions
+- Safety warnings and checks
+
 ## Quick Start
 
 1. **Start the robot (interactive):**
@@ -57,7 +71,12 @@ This directory contains convenient shell scripts to manage your Ruohobot.
    ./status_bot.sh
    ```
 
-3. **Stop the robot:**
+3. **Test motors separately:**
+   ```bash
+   ./test_motors.sh
+   ```
+
+4. **Stop the robot:**
    ```bash
    ./kill_bot.sh
    ```
