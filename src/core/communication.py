@@ -208,14 +208,18 @@ class CommunicationManager:
         
         <div class="status">
             <h3>Manual Controls</h3>
-            <p>Use WASD keys when this page has focus:</p>
-            <ul>
-                <li>W - Forward</li>
-                <li>S - Backward</li>
-                <li>A - Turn Left</li>
-                <li>D - Turn Right</li>
-                <li>Space - Stop</li>
-            </ul>
+            <p><strong>Click this area and use WASD keys:</strong></p>
+            <div id="control-area" tabindex="0" style="border: 2px solid #007bff; padding: 20px; background: #f8f9fa; border-radius: 5px; text-align: center; font-weight: bold; cursor: pointer;" onclick="this.focus()">
+                <p>🎮 WASD Control Zone - Click to Focus</p>
+                <div style="margin-top: 10px;">
+                    <div>W - Forward</div>
+                    <div>S - Backward</div>
+                    <div>A - Turn Left</div>
+                    <div>D - Turn Right</div>
+                    <div>Space - Stop</div>
+                </div>
+            </div>
+            <p style="color: #666; font-size: 12px; margin-top: 10px;">Make sure robot is in Manual Control mode first!</p>
         </div>
     </div>
     
@@ -241,16 +245,50 @@ class CommunicationManager:
             .catch(error => console.error('Status update error:', error));
         }
         
-        // Keyboard controls
+        // Keyboard controls - enhanced with better focus handling
         document.addEventListener('keydown', function(event) {
+            // Prevent default behavior for WASD and space to avoid page scrolling
+            if (['w', 'a', 's', 'd', ' '].includes(event.key.toLowerCase())) {
+                event.preventDefault();
+            }
+            
             switch(event.key.toLowerCase()) {
-                case 'w': sendCommand('move', {speed: 400, direction: 0}); break;
-                case 's': sendCommand('move', {speed: -400, direction: 0}); break;
-                case 'a': sendCommand('move', {speed: 0, direction: -400}); break;
-                case 'd': sendCommand('move', {speed: 0, direction: 400}); break;
-                case ' ': sendCommand('move', {speed: 0, direction: 0}); break;
+                case 'w': 
+                    sendCommand('move', {speed: 400, direction: 0}); 
+                    console.log('W pressed - Forward');
+                    break;
+                case 's': 
+                    sendCommand('move', {speed: -400, direction: 0}); 
+                    console.log('S pressed - Backward');
+                    break;
+                case 'a': 
+                    sendCommand('move', {speed: 0, direction: -400}); 
+                    console.log('A pressed - Turn Left');
+                    break;
+                case 'd': 
+                    sendCommand('move', {speed: 0, direction: 400}); 
+                    console.log('D pressed - Turn Right');
+                    break;
+                case ' ': 
+                    sendCommand('move', {speed: 0, direction: 0}); 
+                    console.log('Space pressed - Stop');
+                    break;
             }
         });
+        
+        // Add visual feedback for the control area
+        const controlArea = document.getElementById('control-area');
+        if (controlArea) {
+            controlArea.addEventListener('focus', function() {
+                this.style.backgroundColor = '#e7f3ff';
+                this.innerHTML = '<p>🎮 WASD Control Zone - ACTIVE</p><div style="margin-top: 10px;"><div>W - Forward</div><div>S - Backward</div><div>A - Turn Left</div><div>D - Turn Right</div><div>Space - Stop</div></div>';
+            });
+            
+            controlArea.addEventListener('blur', function() {
+                this.style.backgroundColor = '#f8f9fa';
+                this.innerHTML = '<p>🎮 WASD Control Zone - Click to Focus</p><div style="margin-top: 10px;"><div>W - Forward</div><div>S - Backward</div><div>A - Turn Left</div><div>D - Turn Right</div><div>Space - Stop</div></div>';
+            });
+        }
         
         // Update status every 2 seconds
         setInterval(updateStatus, 2000);

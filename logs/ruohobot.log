@@ -20066,3 +20066,320 @@
 2025-07-19 00:25:45 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
 2025-07-19 00:25:45 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
 2025-07-19 00:25:52 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:31:40 - root - INFO - Ruohobot logging initialized
+2025-07-19 07:31:40 - root - INFO - Log level: INFO
+2025-07-19 07:31:40 - root - INFO - Log file: /home/lapanen/git/Ruohobot/logs/ruohobot.log
+2025-07-19 07:31:40 - core.config_manager - INFO - Configuration loaded from /home/lapanen/git/Ruohobot/config/robot_config.yaml
+2025-07-19 07:31:40 - __main__ - INFO - Initializing Ruohobot...
+2025-07-19 07:31:40 - core.robot - INFO - Initializing robot subsystems...
+2025-07-19 07:31:40 - core.motors - INFO - Motoron controller initialized successfully
+2025-07-19 07:31:40 - core.motors - INFO - M3H550 motor controller initialized on I2C bus 1, address 16
+2025-07-19 07:31:40 - core.sensors - INFO - Sensor manager initialized (simulated sensors)
+2025-07-19 07:31:40 - core.external_modules - INFO - Distance scanner connected on /dev/ttyUSB0
+2025-07-19 07:31:40 - core.external_modules - ERROR - Failed to connect sentinel module: [Errno 2] could not open port /dev/ttyUSB1: [Errno 2] No such file or directory: '/dev/ttyUSB1'
+2025-07-19 07:31:40 - core.external_modules - INFO - External module manager initialized
+2025-07-19 07:31:40 - core.hardware_manager - INFO - Hardware manager initialized
+2025-07-19 07:31:40 - core.safety - INFO - Safety system initialized
+2025-07-19 07:31:40 - core.safety - INFO - Emergency stop enabled: True
+2025-07-19 07:31:40 - core.safety - INFO - Max tilt angle: 30°
+2025-07-19 07:31:40 - core.safety - INFO - Battery low threshold: 11.0V
+2025-07-19 07:31:40 - core.navigation - INFO - Navigation system initialized
+2025-07-19 07:31:40 - core.communication - INFO - HTTP server started on port 8080
+2025-07-19 07:31:40 - core.communication - INFO - Communication manager initialized (WiFi: True)
+2025-07-19 07:31:40 - core.state_machine - INFO - State machine initialized with default state: idle
+2025-07-19 07:31:40 - core.robot - INFO - Robot initialization complete
+2025-07-19 07:31:40 - __main__ - INFO - Starting robot main loop...
+2025-07-19 07:31:40 - core.robot - INFO - Starting robot main loop
+2025-07-19 07:31:40 - core.robot - INFO - State changed from None to idle
+2025-07-19 07:31:40 - core.motors - INFO - All motors stopped
+2025-07-19 07:32:30 - core.communication - INFO - Received command: {'type': 'state_change', 'state': 'manual_control'}
+2025-07-19 07:32:30 - core.state_machine - INFO - State changed: idle -> manual_control
+2025-07-19 07:32:30 - core.robot - INFO - State changed from idle to manual_control
+2025-07-19 07:33:06 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:33:07 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:33:10 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:33:30 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:35:15 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:39:26 - root - INFO - Received shutdown signal, stopping robot...
+2025-07-19 07:39:26 - core.robot - INFO - Shutting down robot...
+2025-07-19 07:39:26 - core.motors - INFO - All motors stopped
+2025-07-19 07:39:26 - core.hardware_manager - INFO - Shutting down hardware...
+2025-07-19 07:39:26 - core.motors - INFO - Shutting down motor controller...
+2025-07-19 07:39:26 - core.motors - INFO - All motors stopped
+2025-07-19 07:39:26 - core.motors - INFO - Motor controller shutdown complete
+2025-07-19 07:39:26 - core.sensors - INFO - Sensor manager shutdown
+2025-07-19 07:39:26 - core.external_modules - INFO - Shutting down external modules...
+2025-07-19 07:39:26 - core.external_modules - INFO - External modules shutdown complete
+2025-07-19 07:39:26 - core.hardware_manager - INFO - Hardware shutdown complete
+2025-07-19 07:39:26 - core.communication - INFO - Shutting down communication system...
+2025-07-19 07:39:27 - core.communication - INFO - Communication system shutdown complete
+2025-07-19 07:39:27 - core.robot - INFO - Robot shutdown complete
+2025-07-19 07:39:27 - __main__ - INFO - Ruohobot shutdown complete
+2025-07-19 07:40:09 - root - INFO - Ruohobot logging initialized
+2025-07-19 07:40:09 - root - INFO - Log level: INFO
+2025-07-19 07:40:09 - root - INFO - Log file: /home/lapanen/git/Ruohobot/logs/ruohobot.log
+2025-07-19 07:40:09 - core.config_manager - INFO - Configuration loaded from /home/lapanen/git/Ruohobot/config/robot_config.yaml
+2025-07-19 07:40:09 - __main__ - INFO - Initializing Ruohobot...
+2025-07-19 07:40:09 - core.robot - INFO - Initializing robot subsystems...
+2025-07-19 07:40:09 - core.motors - INFO - Motoron controller initialized successfully
+2025-07-19 07:40:09 - core.motors - INFO - M3H550 motor controller initialized on I2C bus 1, address 16
+2025-07-19 07:40:09 - core.sensors - INFO - Sensor manager initialized (simulated sensors)
+2025-07-19 07:40:09 - core.external_modules - INFO - Distance scanner connected on /dev/ttyUSB0
+2025-07-19 07:40:09 - core.external_modules - ERROR - Failed to connect sentinel module: [Errno 2] could not open port /dev/ttyUSB1: [Errno 2] No such file or directory: '/dev/ttyUSB1'
+2025-07-19 07:40:09 - core.external_modules - INFO - External module manager initialized
+2025-07-19 07:40:09 - core.hardware_manager - INFO - Hardware manager initialized
+2025-07-19 07:40:09 - core.safety - INFO - Safety system initialized
+2025-07-19 07:40:09 - core.safety - INFO - Emergency stop enabled: True
+2025-07-19 07:40:09 - core.safety - INFO - Max tilt angle: 30°
+2025-07-19 07:40:09 - core.safety - INFO - Battery low threshold: 11.0V
+2025-07-19 07:40:09 - core.navigation - INFO - Navigation system initialized
+2025-07-19 07:40:09 - core.communication - INFO - HTTP server started on port 8080
+2025-07-19 07:40:09 - core.communication - INFO - Communication manager initialized (WiFi: True)
+2025-07-19 07:40:09 - core.state_machine - INFO - State machine initialized with default state: idle
+2025-07-19 07:40:09 - core.robot - INFO - Robot initialization complete
+2025-07-19 07:40:09 - __main__ - INFO - Starting robot main loop...
+2025-07-19 07:40:09 - core.robot - INFO - Starting robot main loop
+2025-07-19 07:40:09 - core.robot - INFO - State changed from None to idle
+2025-07-19 07:40:09 - core.motors - INFO - All motors stopped
+2025-07-19 07:40:18 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:40:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:40:25 - core.communication - INFO - Received command: {'type': 'state_change', 'data': 'manual_control'}
+2025-07-19 07:40:25 - core.state_machine - INFO - State changed: idle -> manual_control
+2025-07-19 07:40:25 - core.robot - INFO - State changed from idle to manual_control
+2025-07-19 07:40:40 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:19 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:41:20 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:41:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:41:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:41:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:41:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:41:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:41:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:41:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:41:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:41:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:41:21 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:22 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:41:23 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:41:23 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:41:23 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:41:23 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:43:16 - root - INFO - Received shutdown signal, stopping robot...
+2025-07-19 07:43:16 - core.robot - INFO - Shutting down robot...
+2025-07-19 07:43:16 - core.motors - INFO - All motors stopped
+2025-07-19 07:43:16 - core.hardware_manager - INFO - Shutting down hardware...
+2025-07-19 07:43:16 - core.motors - INFO - Shutting down motor controller...
+2025-07-19 07:43:16 - core.motors - INFO - All motors stopped
+2025-07-19 07:43:16 - core.motors - INFO - Motor controller shutdown complete
+2025-07-19 07:43:16 - core.sensors - INFO - Sensor manager shutdown
+2025-07-19 07:43:16 - core.external_modules - INFO - Shutting down external modules...
+2025-07-19 07:43:16 - core.external_modules - INFO - External modules shutdown complete
+2025-07-19 07:43:16 - core.hardware_manager - INFO - Hardware shutdown complete
+2025-07-19 07:43:16 - core.communication - INFO - Shutting down communication system...
+2025-07-19 07:43:16 - core.communication - INFO - Communication system shutdown complete
+2025-07-19 07:43:16 - core.robot - INFO - Robot shutdown complete
+2025-07-19 07:43:16 - __main__ - INFO - Ruohobot shutdown complete
+2025-07-19 07:44:01 - root - INFO - Ruohobot logging initialized
+2025-07-19 07:44:01 - root - INFO - Log level: INFO
+2025-07-19 07:44:01 - root - INFO - Log file: /home/lapanen/git/Ruohobot/logs/ruohobot.log
+2025-07-19 07:44:01 - core.config_manager - INFO - Configuration loaded from /home/lapanen/git/Ruohobot/config/robot_config.yaml
+2025-07-19 07:44:01 - __main__ - INFO - Initializing Ruohobot...
+2025-07-19 07:44:01 - core.robot - INFO - Initializing robot subsystems...
+2025-07-19 07:44:01 - core.motors - INFO - Motoron controller initialized successfully
+2025-07-19 07:44:01 - core.motors - INFO - M3H550 motor controller initialized on I2C bus 1, address 16
+2025-07-19 07:44:01 - core.sensors - INFO - Sensor manager initialized (simulated sensors)
+2025-07-19 07:44:01 - core.external_modules - INFO - Distance scanner connected on /dev/ttyUSB0
+2025-07-19 07:44:01 - core.external_modules - ERROR - Failed to connect sentinel module: [Errno 2] could not open port /dev/ttyUSB1: [Errno 2] No such file or directory: '/dev/ttyUSB1'
+2025-07-19 07:44:01 - core.external_modules - INFO - External module manager initialized
+2025-07-19 07:44:01 - core.hardware_manager - INFO - Hardware manager initialized
+2025-07-19 07:44:01 - core.safety - INFO - Safety system initialized
+2025-07-19 07:44:01 - core.safety - INFO - Emergency stop enabled: True
+2025-07-19 07:44:01 - core.safety - INFO - Max tilt angle: 30°
+2025-07-19 07:44:01 - core.safety - INFO - Battery low threshold: 11.0V
+2025-07-19 07:44:01 - core.navigation - INFO - Navigation system initialized
+2025-07-19 07:44:01 - core.communication - INFO - HTTP server started on port 8080
+2025-07-19 07:44:01 - core.communication - INFO - Communication manager initialized (WiFi: True)
+2025-07-19 07:44:01 - core.state_machine - INFO - State machine initialized with default state: idle
+2025-07-19 07:44:01 - core.robot - INFO - Robot initialization complete
+2025-07-19 07:44:01 - __main__ - INFO - Starting robot main loop...
+2025-07-19 07:44:01 - core.robot - INFO - Starting robot main loop
+2025-07-19 07:44:01 - core.robot - INFO - State changed from None to idle
+2025-07-19 07:44:01 - core.motors - INFO - All motors stopped
+2025-07-19 07:44:08 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:09 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:09 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:09 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:09 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:09 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:09 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:09 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:09 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:10 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:10 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:10 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:44:11 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:44:11 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:44:11 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:44:11 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:44:11 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:44:11 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:44:12 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:44:12 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:44:12 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:44:48 - core.communication - INFO - Received command: {'type': 'state_change', 'data': 'manual_control'}
+2025-07-19 07:44:48 - core.state_machine - INFO - State changed: idle -> manual_control
+2025-07-19 07:44:48 - core.robot - INFO - State changed from idle to manual_control
+2025-07-19 07:44:55 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:56 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:57 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:57 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:57 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:57 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:44:57 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:57 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:57 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:57 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:58 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:44:59 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:00 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:00 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:00 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:00 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:00 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:02 - core.communication - INFO - Received command: {'type': 'state_change', 'data': 'manual_control'}
+2025-07-19 07:45:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:45:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:45:05 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:45:05 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': -400, 'direction': 0}}
+2025-07-19 07:45:05 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': 400}}
+2025-07-19 07:45:05 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:45:06 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:45:06 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:45:06 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 0, 'direction': -400}}
+2025-07-19 07:45:08 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:47:12 - root - INFO - Received shutdown signal, stopping robot...
+2025-07-19 07:47:12 - core.robot - INFO - Shutting down robot...
+2025-07-19 07:47:12 - core.motors - INFO - All motors stopped
+2025-07-19 07:47:12 - core.hardware_manager - INFO - Shutting down hardware...
+2025-07-19 07:47:12 - core.motors - INFO - Shutting down motor controller...
+2025-07-19 07:47:12 - core.motors - INFO - All motors stopped
+2025-07-19 07:47:12 - core.motors - INFO - Motor controller shutdown complete
+2025-07-19 07:47:12 - core.sensors - INFO - Sensor manager shutdown
+2025-07-19 07:47:12 - core.external_modules - INFO - Shutting down external modules...
+2025-07-19 07:47:12 - core.external_modules - INFO - External modules shutdown complete
+2025-07-19 07:47:12 - core.hardware_manager - INFO - Hardware shutdown complete
+2025-07-19 07:47:12 - core.communication - INFO - Shutting down communication system...
+2025-07-19 07:47:12 - core.communication - INFO - Communication system shutdown complete
+2025-07-19 07:47:12 - core.robot - INFO - Robot shutdown complete
+2025-07-19 07:47:12 - __main__ - INFO - Ruohobot shutdown complete
+2025-07-19 07:47:52 - root - INFO - Ruohobot logging initialized
+2025-07-19 07:47:52 - root - INFO - Log level: INFO
+2025-07-19 07:47:52 - root - INFO - Log file: /home/lapanen/git/Ruohobot/logs/ruohobot.log
+2025-07-19 07:47:52 - core.config_manager - INFO - Configuration loaded from /home/lapanen/git/Ruohobot/config/robot_config.yaml
+2025-07-19 07:47:52 - __main__ - INFO - Initializing Ruohobot...
+2025-07-19 07:47:52 - core.robot - INFO - Initializing robot subsystems...
+2025-07-19 07:47:52 - core.motors - INFO - Motoron controller initialized successfully
+2025-07-19 07:47:52 - core.motors - INFO - M3H550 motor controller initialized on I2C bus 1, address 16
+2025-07-19 07:47:52 - core.sensors - INFO - Sensor manager initialized (simulated sensors)
+2025-07-19 07:47:52 - core.external_modules - INFO - Distance scanner connected on /dev/ttyUSB0
+2025-07-19 07:47:52 - core.external_modules - ERROR - Failed to connect sentinel module: [Errno 2] could not open port /dev/ttyUSB1: [Errno 2] No such file or directory: '/dev/ttyUSB1'
+2025-07-19 07:47:52 - core.external_modules - INFO - External module manager initialized
+2025-07-19 07:47:52 - core.hardware_manager - INFO - Hardware manager initialized
+2025-07-19 07:47:52 - core.safety - INFO - Safety system initialized
+2025-07-19 07:47:52 - core.safety - INFO - Emergency stop enabled: True
+2025-07-19 07:47:52 - core.safety - INFO - Max tilt angle: 30°
+2025-07-19 07:47:52 - core.safety - INFO - Battery low threshold: 11.0V
+2025-07-19 07:47:52 - core.navigation - INFO - Navigation system initialized
+2025-07-19 07:47:52 - core.communication - INFO - HTTP server started on port 8080
+2025-07-19 07:47:52 - core.communication - INFO - Communication manager initialized (WiFi: True)
+2025-07-19 07:47:52 - core.state_machine - INFO - State machine initialized with default state: idle
+2025-07-19 07:47:52 - core.robot - INFO - Robot initialization complete
+2025-07-19 07:47:52 - __main__ - INFO - Starting robot main loop...
+2025-07-19 07:47:52 - core.robot - INFO - Starting robot main loop
+2025-07-19 07:47:52 - core.robot - INFO - State changed from None to idle
+2025-07-19 07:47:52 - core.motors - INFO - All motors stopped
+2025-07-19 07:48:02 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:03 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}
+2025-07-19 07:48:04 - core.communication - INFO - Received command: {'type': 'move', 'data': {'speed': 400, 'direction': 0}}

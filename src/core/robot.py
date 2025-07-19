@@ -145,7 +145,12 @@ class Robot:
         if cmd_type == 'move':
             self._handle_move_command(command)
         elif cmd_type == 'state_change':
-            self.state_machine.request_state_change(command['state'])
+            # Handle both formats: {"type": "state_change", "state": "value"} and {"type": "state_change", "data": "value"}
+            state = command.get('state', command.get('data'))
+            if state:
+                self.state_machine.request_state_change(state)
+            else:
+                self.logger.warning("State change command missing state parameter")
         elif cmd_type == 'emergency_stop':
             self._emergency_stop()
         else:
@@ -154,8 +159,10 @@ class Robot:
     def _handle_move_command(self, command: Dict[str, Any]):
         """Handle movement commands"""
         if self.state_machine.current_state == 'manual_control':
-            speed = command.get('speed', 0)
-            direction = command.get('direction', 0)
+            # Extract data from command - handle both formats for compatibility
+            data = command.get('data', command)  # Use 'data' field if present, otherwise use command directly
+            speed = data.get('speed', 0)
+            direction = data.get('direction', 0)
             self.hardware.motors.set_velocity(speed, direction)
     
     def _emergency_stop(self):
