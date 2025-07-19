@@ -1,0 +1,118 @@
+# Ruohobot Configuration File
+# Configuration for autonomous lawn mower robot
+# Date: July 18, 2025
+
+# Hardware Configuration
+hardware:
+  motors:
+    pololu_m3h550:
+      i2c_bus: 1                    # Raspberry Pi I2C bus 1
+      i2c_address: 16               # M3H550 default address
+      max_speed: 800                # Maximum motor speed (-800 to 800)
+      
+      # Motor Physical Mapping
+      # Motor 1: Not used (bad solder connections - avoid using)
+      # Motor 2: Right drive motor (physical right side of robot)
+      # Motor 3: Left drive motor (physical left side of robot)
+      motor_mapping:
+        left_motor: 3               # Motor 3 controls left wheel
+        right_motor: 2              # Motor 2 controls right wheel
+        unused_motor: 1             # Motor 1 has bad connections
+      
+      # Motor 1 Settings (DISABLED - bad solder connections)
+      motor_1_acceleration: 140
+      motor_1_deceleration: 300
+      motor_1_reversed: false
+      motor_1_enabled: false        # DISABLED due to hardware issues
+      
+      # Motor 2 Settings (RIGHT MOTOR)
+      motor_2_acceleration: 140     # Acceleration limit
+      motor_2_deceleration: 300     # Deceleration limit
+      motor_2_reversed: false       # Set true if motor spins backwards
+      motor_2_enabled: true         # RIGHT motor - enabled
+      
+      # Motor 3 Settings (LEFT MOTOR)
+      motor_3_acceleration: 140     # Acceleration limit
+      motor_3_deceleration: 300     # Deceleration limit
+      motor_3_reversed: false       # Set true if motor spins backwards
+      motor_3_enabled: true         # LEFT motor - enabled
+
+  # Sensor Configuration
+  sensors:
+    distance_scanner:
+      port: '/dev/ttyUSB0'
+      baudrate: 9600
+      enabled: true
+    
+    sentinel:
+      port: '/dev/ttyUSB1'
+      baudrate: 115200
+      enabled: true
+
+  # External Modules (Arduino/NodeMCU)
+  external_modules:
+    distance_scanner:
+      enabled: true
+      port: '/dev/ttyUSB0'
+      description: "Arduino distance sensor array"
+    
+    sentinel:
+      enabled: true
+      port: '/dev/ttyUSB1'
+      description: "NodeMCU environmental monitoring"
+
+# Safety Configuration
+safety:
+  emergency_stop_enabled: true      # Enable emergency stop functionality
+  max_tilt_angle: 30               # Maximum tilt angle in degrees
+  battery_low_threshold: 11.0       # Low battery voltage threshold
+  motor_current_limit: 15000        # Maximum motor current in mA
+  safety_check_interval: 0.1        # Safety check frequency in seconds
+
+# Navigation Configuration
+navigation:
+  max_speed: 0.5                    # Maximum forward speed (m/s)
+  turn_speed: 0.3                   # Maximum turning speed (rad/s)
+  obstacle_distance: 0.5            # Minimum obstacle distance (meters)
+  differential_drive:
+    wheel_base: 0.4                 # Distance between wheels (meters)
+    wheel_diameter: 0.1             # Wheel diameter (meters)
+
+# Communication Configuration
+communication:
+  wifi_enabled: true                # Enable WiFi communication
+  telemetry_port: 8080             # HTTP server port
+  update_frequency: 1.0            # Telemetry update frequency (seconds)
+  
+  # Web Interface Settings
+  web_interface:
+    enabled: true
+    cors_enabled: true              # Allow cross-origin requests
+    debug_mode: false               # Enable debug logging
+
+# Robot Behavior Configuration
+behavior:
+  default_state: 'idle'             # Initial robot state
+  patrol_mode: true                 # Enable autonomous patrol
+  auto_dock: false                  # Automatic docking (future feature)
+  
+  # Movement Parameters
+  movement:
+    default_speed: 400              # Default movement speed
+    turn_speed: 300                 # Default turning speed
+    precision_mode_speed: 200       # Slow speed for precise movements
+
+# Logging Configuration
+logging:
+  level: 'INFO'                     # DEBUG, INFO, WARNING, ERROR
+  log_to_file: true                 # Enable file logging
+  log_file: 'logs/ruohobot.log'    # Log file path
+  max_log_size: 10485760           # 10MB max log file size
+  backup_count: 5                   # Number of backup log files
+
+# Development/Debug Settings
+debug:
+  motor_simulation: false           # Use simulated motors for testing
+  sensor_simulation: true           # Use simulated sensors when hardware unavailable
+  web_debug: false                 # Enable web interface debugging
+  verbose_motor_logging: false     # Detailed motor operation logs

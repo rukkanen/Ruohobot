@@ -32,6 +32,20 @@ class MotorController:
         self.max_speed = self.config.get('max_speed', 800)
         self.emergency_stop_active = False
         
+        # Motor mapping configuration (Motor 2=Right, Motor 3=Left, Motor 1=Unused)
+        self.motor_mapping = self.config.get('motor_mapping', {
+            'left_motor': 3,
+            'right_motor': 2,
+            'unused_motor': 1
+        })
+        
+        # Motor enabled/disabled status
+        self.motor_enabled = {
+            1: self.config.get('motor_1_enabled', True),
+            2: self.config.get('motor_2_enabled', True),
+            3: self.config.get('motor_3_enabled', True)
+        }
+        
         # Motor configuration
         self.motor_config = {
             1: {
@@ -104,6 +118,11 @@ class MotorController:
             self.logger.error(f"Invalid motor ID: {motor_id}. Must be 1, 2, or 3")
             return
         
+        # Check if motor is enabled
+        if not self.motor_enabled.get(motor_id, True):
+            self.logger.debug(f"Motor {motor_id} is disabled, ignoring speed command")
+            return
+        
         if self.emergency_stop_active:
             self.logger.warning("Emergency stop active, ignoring speed command")
             return
@@ -144,7 +163,6 @@ class MotorController:
         max_motor_speed = self.max_speed
         
         # Simple differential drive calculation
-        # Assuming motors 1 and 2 are drive wheels, motor 3 might be for other purposes
         left_speed = linear_speed - angular_speed
         right_speed = linear_speed + angular_speed
         
@@ -158,18 +176,28 @@ class MotorController:
         left_motor_speed = int(left_speed * max_motor_speed)
         right_motor_speed = int(right_speed * max_motor_speed)
         
-        # Set motor speeds (assuming motor 1 = left, motor 2 = right)
-        self.set_speed(1, left_motor_speed)
-        self.set_speed(2, right_motor_speed)
+        # Use motor mapping configuration (Motor 2=Right, Motor 3=Left, Motor 1=Unused)
+        left_motor_id = self.motor_mapping.get('left_motor', 3)   # Motor 3
+        right_motor_id = self.motor_mapping.get('right_motor', 2) # Motor 2
+        
+        # Only set speeds for enabled motors
+        if self.motor_enabled.get(left_motor_id, True):
+            self.set_speed(left_motor_id, left_motor_speed)
+        
+        if self.motor_enabled.get(right_motor_id, True):
+            self.set_speed(right_motor_id, right_motor_speed)
         
         self.logger.debug(f"Set velocity: linear={linear_speed:.2f}, angular={angular_speed:.2f}")
+        self.logger.debug(f"Motor speeds: Left(M{left_motor_id})={left_motor_speed}, Right(M{right_motor_id})={right_motor_speed}")
     
     def stop(self):
         """Stop all motors gradually (using deceleration limits)"""
         try:
+            # Only stop enabled motors
             for motor_id in [1, 2, 3]:
-                self.mc.set_speed(motor_id, 0)
-                self.current_speeds[motor_id] = 0
+                if self.motor_enabled.get(motor_id, True):
+                    self.mc.set_speed(motor_id, 0)
+                    self.current_speeds[motor_id] = 0
             self.logger.info("All motors stopped")
         except Exception as e:
             self.logger.error(f"Error stopping motors: {e}")
@@ -179,9 +207,11 @@ class MotorController:
         self.emergency_stop_active = True
         try:
             # Set speeds to zero immediately (bypasses acceleration/deceleration)
+            # Only stop enabled motors to avoid errors with disabled Motor 1
             for motor_id in [1, 2, 3]:
-                self.mc.set_speed(motor_id, 0)
-                self.current_speeds[motor_id] = 0
+                if self.motor_enabled.get(motor_id, True):
+                    self.mc.set_speed(motor_id, 0)
+                    self.current_speeds[motor_id] = 0
             self.logger.critical("EMERGENCY STOP - All motors halted")
         except Exception as e:
             self.logger.error(f"Error during emergency stop: {e}")

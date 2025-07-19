@@ -47,15 +47,27 @@ class ConfigManager:
                         'i2c_bus': 1,  # Standard I2C bus on Raspberry Pi
                         'i2c_address': 16,
                         'max_speed': 800,
+                        # Motor mapping for Ruohobot
+                        # Motor 1: Not used (bad solder connections)
+                        # Motor 2: Right drive motor
+                        # Motor 3: Left drive motor
+                        'motor_mapping': {
+                            'left_motor': 3,
+                            'right_motor': 2,
+                            'unused_motor': 1
+                        },
                         'motor_1_acceleration': 140,
                         'motor_1_deceleration': 300,
                         'motor_1_reversed': False,
+                        'motor_1_enabled': False,  # Disabled due to bad solder connections
                         'motor_2_acceleration': 140,
                         'motor_2_deceleration': 300,
                         'motor_2_reversed': False,
+                        'motor_2_enabled': True,   # Right motor - enabled
                         'motor_3_acceleration': 140,
                         'motor_3_deceleration': 300,
-                        'motor_3_reversed': False
+                        'motor_3_reversed': False,
+                        'motor_3_enabled': True    # Left motor - enabled
                     }
                 },
                 'sensors': {
