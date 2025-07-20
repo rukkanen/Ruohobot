@@ -109,6 +109,8 @@ class Robot:
             self._emergency_stop_behavior(state_changed)
         elif state == 'low_power':
             self._low_power_behavior()
+        elif state == 'exploration':
+            self._exploration_behavior()
     
     def _idle_behavior(self, state_changed: bool = False):
         """Idle state - waiting for commands"""
@@ -137,6 +139,37 @@ class Robot:
     def _low_power_behavior(self):
         """Low power state - minimal activity"""
         self.hardware.set_low_power_mode(True)
+    
+    def _exploration_behavior(self):
+        """Exploration state - autonomous navigation and mapping"""
+        self.logger.info("Exploration behavior active")
+        self.navigation.update()
+        # Use the SLAM and LiDAR from CommunicationManager so the web map updates
+        if hasattr(self.communication, 'slam') and hasattr(self.communication, 'lidar'):
+            if self.communication.slam and self.communication.lidar:
+                scan = self.communication.lidar.get_current_scan()
+                # The SLAM system expects a scan to be processed, not update_map
+                if scan is not None and hasattr(self.communication.slam, '_process_lidar_scan'):
+                    self.communication.slam._process_lidar_scan(scan)
+                else:
+                    self.logger.warning("No scan available or SLAM missing _process_lidar_scan method!")
+            else:
+                self.logger.warning("CommunicationManager SLAM or LiDAR not initialized!")
+        else:
+            self.logger.warning("CommunicationManager missing slam or lidar attributes!")
+    
+    def _run_exploration_algorithm(self):
+        """Run exploration algorithm"""
+        self.logger.info("Running exploration algorithm")
+        if hasattr(self.communication, 'slam') and self.communication.slam:
+            unexplored_areas = self.communication.slam.get_unexplored_areas()
+            # Only call navigate_to if it exists
+            if hasattr(self.navigation, 'navigate_to'):
+                self.navigation.navigate_to(unexplored_areas)
+            else:
+                self.logger.warning("NavigationSystem missing navigate_to method!")
+        else:
+            self.logger.warning("CommunicationManager SLAM not available for exploration algorithm!")
     
     def _handle_command(self, command: Dict[str, Any]):
         """Handle commands from communication system"""

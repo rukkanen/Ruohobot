@@ -196,21 +196,14 @@ class NavigationSystem:
         self.hardware.motors.set_velocity(linear_command, angular_command)
     
     def _explore_behavior(self):
-        """Random exploration behavior"""
-        # Simple random walk with obstacle avoidance
-        current_time = time.time()
-        
-        # Change direction every 5-10 seconds
-        if not hasattr(self, '_last_direction_change'):
-            self._last_direction_change = current_time
-            self._explore_direction = 0.0
-        
-        if current_time - self._last_direction_change > 7.0:  # Change direction
-            self._explore_direction = (time.time() % 10 - 5) * 0.1  # Random turn bias
-            self._last_direction_change = current_time
-        
-        # Move forward with slight turn bias
-        self.hardware.motors.set_velocity(self.max_speed * 0.7, self._explore_direction)
+        """Exploration mode using SLAM"""
+        if self.slam_system.is_mapping:
+            self.slam_system.start_mapping()
+        obstacles = self._check_obstacles()
+        if obstacles:
+            self._avoid_obstacles()
+        else:
+            self._navigate_to_waypoint()
     
     def _return_home_behavior(self):
         """Return to starting position"""

@@ -4,6 +4,8 @@ This directory contains convenient shell scripts to manage your Ruohobot.
 
 ## Scripts Overview
 
+source /home/lapanen/git/Ruohobot/.venv/bin/activate
+
 ### 🚀 `run_bot.sh`
 **Interactive mode** - Starts the robot in the foreground
 ```bash

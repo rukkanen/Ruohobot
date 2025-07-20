@@ -65,3 +65,48 @@ Once running, access the web interface at:
 ## Safety
 
 ⚠️ **IMPORTANT**: This bot has had all cutting blades removed for safety.
+
+## Installation Instructions
+
+### Prerequisites
+Ensure you have Python installed on your Raspberry Pi OS. You can check this by running:
+
+```bash
+python3 --version
+```
+
+### Installing Required Python Packages
+
+1. Update your package manager:
+
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+2. Install OpenCV:
+
+```bash
+sudo apt install python3-opencv
+```
+
+3. Install Flask:
+
+```bash
+pip3 install flask
+```
+
+4. Install other dependencies:
+
+```bash
+pip3 install -r requirements.txt
+```
+
+### Running the Bot
+
+Start the bot using:
+
+```bash
+bash run_bot.sh
+```
+
+Access the web interface at `http://localhost:8080`.

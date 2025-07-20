@@ -17,6 +17,21 @@ try:
 except ImportError:
     NETWORKING_AVAILABLE = False
 
+import cv2
+from flask import Response, jsonify
+from core.slam import SLAMSystem
+
+# Ensure compatibility with Raspberry Pi OS
+try:
+    import cv2
+except ImportError:
+    raise ImportError("OpenCV is not installed. Install it using 'sudo apt install python3-opencv'.")
+
+try:
+    from flask import Response, jsonify
+except ImportError:
+    raise ImportError("Flask is not installed. Install it using 'pip3 install flask'.")
+
 
 class CommunicationManager:
     """Manages robot communication interfaces"""
@@ -44,6 +59,34 @@ class CommunicationManager:
         # Status
         self.is_running = False
         self.start_time = time.time()  # Track when communication system started
+
+        # Initialize LiDAR and SLAM system (load config like other sensors)
+        try:
+            from core.lidar import LidarManager
+            lidar_config = None
+            # Prefer 'lidar' section, else try sensors.distance_scanner as fallback
+            if 'lidar' in config:
+                lidar_config = config['lidar']
+            elif 'sensors' in config and 'distance_scanner' in config['sensors']:
+                lidar_config = config['sensors']['distance_scanner']
+            else:
+                lidar_config = {}
+            self.lidar = LidarManager(lidar_config)
+            self.slam = SLAMSystem(config.get('slam', {}), self.lidar)
+            self.logger.info("LiDAR and SLAM system initialized for CommunicationManager.")
+            # Start SLAM mapping so map will update
+            self.slam.start_mapping()
+            # Force start scanning for simulated mode
+            if hasattr(self.lidar, 'simulate') and self.lidar.simulate:
+                started = self.lidar.start_scanning()
+                if started:
+                    self.logger.info("Simulated LiDAR scanning started.")
+                else:
+                    self.logger.warning("Simulated LiDAR scanning did not start!")
+        except Exception as e:
+            self.lidar = None
+            self.slam = None
+            self.logger.warning(f"LiDAR/SLAM initialization failed: {e}")
         
         if not NETWORKING_AVAILABLE:
             self.logger.warning("Networking libraries not available - communication disabled")
@@ -87,10 +130,31 @@ class CommunicationManager:
                         self._serve_main_page()
                     elif self.path == '/status':
                         self._serve_status()
+                    elif self.path == '/api/slam_map':
+                        self._serve_slam_map()
                     elif self.path.startswith('/api/'):
                         self._handle_api_get()
                     else:
                         self._serve_404()
+
+                def _serve_slam_map(self):
+                    try:
+                        if comm_manager.slam is None:
+                            raise RuntimeError("SLAM system not initialized")
+                        slam_map = comm_manager.slam.get_map_image(add_robot_pose=True)
+                        _, buffer = cv2.imencode('.png', slam_map)
+                        self.send_response(200)
+                        self.send_header('Content-type', 'image/png')
+                        self.send_header('Access-Control-Allow-Origin', '*')
+                        self.end_headers()
+                        self.wfile.write(buffer.tobytes())
+                    except Exception as e:
+                        comm_manager.logger.error(f"Failed to generate SLAM map: {e}")
+                        self.send_response(500)
+                        self.send_header('Content-type', 'application/json')
+                        self.end_headers()
+                        response = {"status": "error", "message": str(e)}
+                        self.wfile.write(json.dumps(response).encode())
                 
                 def do_POST(self):
                     comm_manager.logger.info(f"POST request to {self.path}")
@@ -186,6 +250,8 @@ class CommunicationManager:
         .btn-success { background: #28a745; color: white; }
         .btn-warning { background: #ffc107; color: black; }
         #status-data { font-family: monospace; font-size: 12px; }
+        .slam-visualization { margin-top: 30px; }
+        .slam-visualization img { width: 100%; border: 1px solid #ccc; }
     </style>
 </head>
 <body>
@@ -226,6 +292,11 @@ class CommunicationManager:
             </div>
             <p style="color: #666; font-size: 12px; margin-top: 10px;">Make sure robot is in Manual Control mode first!</p>
         </div>
+        
+        <div class="slam-visualization">
+            <h3>SLAM Map</h3>
+            <img id="slam-map" src="/api/slam_map" alt="SLAM Map" style="width: 100%; border: 1px solid #ccc;">
+        </div>
     </div>
     
     <script>
@@ -248,6 +319,10 @@ class CommunicationManager:
                     '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
             })
             .catch(error => console.error('Status update error:', error));
+        }
+        
+        function updateSlamMap() {
+            document.getElementById('slam-map').src = '/api/slam_map?' + new Date().getTime();
         }
         
         // Keyboard controls - enhanced with better focus handling
@@ -295,9 +370,13 @@ class CommunicationManager:
             });
         }
         
-        // Update status every 2 seconds
-        setInterval(updateStatus, 2000);
+        // Update status and SLAM map every 2 seconds
+        setInterval(() => {
+            updateStatus();
+            updateSlamMap();
+        }, 2000);
         updateStatus(); // Initial load
+        updateSlamMap(); // Initial map load
     </script>
 </body>
 </html>
@@ -359,3 +438,7 @@ class CommunicationManager:
             self.server_thread.join(timeout=2.0)
         
         self.logger.info("Communication system shutdown complete")
+    
+
+# The following should be handled inside CommunicationManager, not as global code.
+# Remove global slam_system and Flask app usage here.

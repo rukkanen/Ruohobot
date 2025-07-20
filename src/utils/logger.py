@@ -10,7 +10,7 @@ import os
 from pathlib import Path
 
 
-def setup_logging(log_level=logging.INFO, log_file=None):
+def setup_logging(log_level=logging.DEBUG, log_file=None):  # <-- Set to DEBUG here
     """
     Setup logging configuration for the robot
     
@@ -64,6 +64,10 @@ def setup_logging(log_level=logging.INFO, log_file=None):
     logging.info("Ruohobot logging initialized")
     logging.info(f"Log level: {logging.getLevelName(log_level)}")
     logging.info(f"Log file: {log_file}")
+    
+    # If you add handlers manually, set their level to DEBUG too:
+    for handler in logging.root.handlers:
+        handler.setLevel(logging.DEBUG)
 
 
 def get_logger(name):

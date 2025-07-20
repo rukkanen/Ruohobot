@@ -11,3 +11,7 @@ src/core/__init__.cpython-310.pyc
 src/core/__init__.cpython-311.pyc
 src/core/__init__.cpython-312.pyc
 src/core/__init__.cpython-313.pyc
+docs/lidar_ld19
+LD-19-Data-Visualization/
+logs
+venv

@@ -2,7 +2,7 @@
 
 # Ruohobot Background Start Script
 # Starts the robot in the background (daemon mode)
-
+export PYTHONPATH=~/git/Ruohobot/src
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"

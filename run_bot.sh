@@ -2,7 +2,7 @@
 
 # Ruohobot Start Script
 # Starts the robot with proper environment and error handling
-
+export PYTHONPATH=~/git/Ruohobot/src
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"

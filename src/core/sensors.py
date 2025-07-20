@@ -46,6 +46,8 @@ class SensorManager:
     
     def _update_sensors(self):
         """Update sensor readings (simulated)"""
+        self.logger.info("Updating sensor readings...")  # TEST LINE
+
         # Simulate slowly draining battery
         self.battery_voltage -= 0.0001  # Very slow drain
         if self.battery_voltage < 10.5:

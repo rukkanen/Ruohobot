@@ -19,6 +19,7 @@ from core.config_manager import ConfigManager
 from utils.logger import setup_logging
 
 
+
 def signal_handler(sig, frame):
     """Handle shutdown signals gracefully"""
     logging.info("Received shutdown signal, stopping robot...")
@@ -26,11 +27,12 @@ def signal_handler(sig, frame):
         robot.shutdown()
     sys.exit(0)
 
-
 def main():
     """Main application entry point"""
     # Setup logging
     setup_logging()
+    # Set core.lidar logger to DEBUG after setup_logging
+    logging.getLogger("core.lidar").setLevel(logging.DEBUG)
     logger = logging.getLogger(__name__)
     
     # Setup signal handlers for graceful shutdown

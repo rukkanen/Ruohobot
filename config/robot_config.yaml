@@ -1,4 +1,4 @@
-# Ruohobot Configuration File
+  # Ruohobot Configuration File
 # Configuration for autonomous lawn mower robot
 # Date: July 18, 2025
 
@@ -39,13 +39,19 @@ hardware:
 
   # Sensor Configuration
   sensors:
-    distance_scanner:
+
+    lidar:
       port: '/dev/ttyUSB0'
+      baudrate: 230400
+      enabled: true
+
+    distance_scanner:
+      port: '/dev/ttyUSB1'
       baudrate: 9600
       enabled: true
-    
+
     sentinel:
-      port: '/dev/ttyUSB1'
+      port: '/dev/ttyUSB2'
       baudrate: 115200
       enabled: true
 
