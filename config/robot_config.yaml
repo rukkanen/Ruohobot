@@ -122,3 +122,7 @@ debug:
   sensor_simulation: true           # Use simulated sensors when hardware unavailable
   web_debug: false                 # Enable web interface debugging
   verbose_motor_logging: false     # Detailed motor operation logs
+
+slam_debug:
+  store_map_locally: true
+  store_map_locally_interval: 5

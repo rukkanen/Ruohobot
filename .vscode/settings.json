@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.mdr": "json",
+        "*.json": "mdr",
+        "*.macro": "json",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp"
+    }
+}

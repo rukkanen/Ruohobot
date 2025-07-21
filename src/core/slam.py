@@ -93,6 +93,8 @@ class SLAMSystem:
             self.total_scans_processed += 1
             self.last_map_update = time.time()
             self.logger.info(f"SLAM: Scan processed. Total scans: {self.total_scans_processed}")
+            # Force map image save after every scan (respects throttling)
+            self.get_map_image(add_robot_pose=True)
         except Exception as e:
             self.logger.warning(f"Error processing LiDAR scan for SLAM: {e}")
     
@@ -183,7 +185,8 @@ class SLAMSystem:
         self._last_odom_time = current_time
     
     def get_map_image(self, add_robot_pose: bool = True) -> np.ndarray:
-        """Generate SLAM map image"""
+        """Generate SLAM map image, optionally save to disk for debugging (throttled)."""
+        import os
         map_image = (self.occupancy_grid * 255).astype(np.uint8)
         map_image = cv2.cvtColor(map_image, cv2.COLOR_GRAY2BGR)
 
@@ -191,5 +194,24 @@ class SLAMSystem:
             robot_x = int((self.current_pose.x - self.origin_x) / self.map_resolution)
             robot_y = int((self.current_pose.y - self.origin_y) / self.map_resolution)
             cv2.circle(map_image, (robot_x, robot_y), 5, (0, 0, 255), -1)
+
+        # Store map locally if flag is set in config['slam_debug'], but only every store_map_locally_interval seconds
+        slam_debug = self.config.get('slam_debug', {})
+        store_map = slam_debug.get('store_map_locally', True)
+        interval = slam_debug.get('store_map_locally_interval', 5)
+        now = time.time()
+        if not hasattr(self, '_last_map_save_time'):
+            self._last_map_save_time = 0
+        if store_map and (now - self._last_map_save_time >= interval):
+            try:
+                out_dir = os.path.join(os.path.dirname(__file__), '../../data/map')
+                out_dir = os.path.abspath(out_dir)
+                os.makedirs(out_dir, exist_ok=True)
+                out_path = os.path.join(out_dir, 'latest_map.png')
+                cv2.imwrite(out_path, map_image)
+                self.logger.debug(f"SLAM: Map image saved to {out_path}")
+                self._last_map_save_time = now
+            except Exception as e:
+                self.logger.warning(f"SLAM: Failed to save map image: {e}")
 
         return map_image
