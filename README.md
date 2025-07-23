@@ -1,7 +1,7 @@
 # Ruohobot - Autonomous Lawnmower Bot
 
 -----------
-**Rant
+**Rant**
 ## I'll just say it here. Github Copilot has become the main coder in this household. 
 
 I'll take responsibility and cudos only for trying to review the flood of code it provided. The bot works, though lidar, exploration and visualization don't yet (I guess that's like 90% undone still then) The capabilities of gpt4.1 in agent mode are starting to worry me. There's so much code that even reviewing it takes evening after evening. When will the point come when I say "screw this, the code's fine, just go woth the flow". This will lead to future LLMs being 
