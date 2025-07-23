@@ -2,7 +2,9 @@
 
 -----------
 **Rant
-I'll just say it here. Github Copilot has become the main coder in this household. I'll take 
+## I'll just say it here. Github Copilot has become the main coder in this household. 
+
+I'll take 
 responsibility and cudos only for trying to review the flood of code it provided. The bot works,
 though lidar, exploration and visualization don't yet (I guess that's like 90% undone still then)
 The capabilities of gpt4.1 in agent mode are starting to worry me in the sense, that there's so
