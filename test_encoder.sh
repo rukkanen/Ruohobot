@@ -1,0 +1,1 @@
+sudo /home/lapanen/git/Ruohobot/.venv/bin/python ./scripts/encoder_tester.py
