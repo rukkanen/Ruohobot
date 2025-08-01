@@ -9,9 +9,14 @@ cd "$SCRIPT_DIR"
 
 echo "🤖 Starting Ruohobot in background mode..."
 
-# Check if virtual environment exists
-if [ ! -d ".venv" ]; then
-    echo "❌ Virtual environment not found at .venv"
+# Check if running as root or with sudo capability
+if [ "$EUID" -eq 0 ]; then
+    echo "✅ Running as root - GPIO access available"
+elif sudo -n true 2>/dev/null; then
+    echo "✅ Sudo access available - will use sudo for GPIO"
+else
+    echo "❌ Root access required for GPIO operations"
+    echo "💡 Please run with: sudo ./run_bot_bg.sh"
     exit 1
 fi
 
@@ -25,7 +30,13 @@ fi
 
 # Start robot in background
 echo "🚀 Starting Ruohobot in background..."
-nohup .venv/bin/python src/main.py > logs/robot_output.log 2>&1 &
+
+# Start with system Python (requires sudo for GPIO)
+if [ "$EUID" -eq 0 ]; then
+    nohup python3 src/main.py > logs/robot_output.log 2>&1 &
+else
+    nohup sudo python3 src/main.py > logs/robot_output.log 2>&1 &
+fi
 ROBOT_PID=$!
 
 # Wait a moment and check if it started successfully

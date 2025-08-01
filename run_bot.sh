@@ -10,10 +10,14 @@ cd "$SCRIPT_DIR"
 echo "🤖 Starting Ruohobot..."
 echo "📂 Working directory: $SCRIPT_DIR"
 
-# Check if virtual environment exists
-if [ ! -d ".venv" ]; then
-    echo "❌ Virtual environment not found at .venv"
-    echo "💡 Please run: python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt"
+# Check if running as root or with sudo capability
+if [ "$EUID" -eq 0 ]; then
+    echo "✅ Running as root - GPIO access available"
+elif sudo -n true 2>/dev/null; then
+    echo "✅ Sudo access available - will use sudo for GPIO"
+else
+    echo "❌ Root access required for GPIO operations"
+    echo "💡 Please run with: sudo ./run_bot.sh"
     exit 1
 fi
 
@@ -51,8 +55,12 @@ echo "🌐 Web interface will be available at http://localhost:8080"
 echo "⌨️  Press Ctrl+C to stop"
 echo ""
 
-# Start the robot
-.venv/bin/python src/main.py
+# Start the robot with system Python (requires sudo for GPIO)
+if [ "$EUID" -eq 0 ]; then
+    python3 src/main.py
+else
+    sudo python3 src/main.py
+fi
 
 # If we get here, the robot has stopped
 echo ""

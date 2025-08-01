@@ -45,8 +45,14 @@ sudo python3 -m pip install --break-system-packages \
 # Navigate to the robot directory
 cd /home/lapanen/git/Ruohobot
 
-# Run the robot (requires sudo for GPIO access)
+# Option 1: Run directly with system Python
 sudo python3 src/main.py
+
+# Option 2: Use the provided script (will auto-detect sudo needs)
+sudo ./run_bot.sh
+
+# Option 3: Run in background mode
+sudo ./run_bot_bg.sh
 ```
 
 ### Expected Output
@@ -89,9 +95,51 @@ sudo python3 motor_test.py
 ### Test IMU
 
 ```bash
-# Test IMU sensor
+# Test IMU sensor (comprehensive test suite)
 sudo python3 scripts/imu_tester.py
 ```
+
+**Expected Output (with IMU connected):**
+```
+🤖 Ruohobot GY-521 IMU Test
+========================================
+🔍 Testing raw MPU-6050 communication...
+✅ Raw MPU-6050 communication successful
+   Temperature: 26.4°C
+   Accelerometer: X=0.123, Y=-0.045, Z=0.987 g
+   Gyroscope: X=1.2, Y=-0.8, Z=0.3 °/s
+
+🔍 Testing robot IMU class...
+✅ Robot IMU class working correctly
+   I2C Address: 0x68
+   [... sensor data ...]
+```
+
+## Convenience Scripts
+
+The robot includes several helper scripts for easy operation:
+
+```bash
+# Start robot interactively (can see output and use Ctrl+C)
+sudo ./run_bot.sh
+
+# Start robot in background (daemon mode)
+sudo ./run_bot_bg.sh
+
+# Check if robot is running
+./status_bot.sh
+
+# Stop the robot
+./kill_bot.sh
+```
+
+**Script Features:**
+- `run_bot.sh`: Interactive mode with live output
+- `run_bot_bg.sh`: Background mode, logs to files
+- `status_bot.sh`: Shows robot status and process info
+- `kill_bot.sh`: Safely stops all robot processes
+
+All scripts automatically detect sudo requirements and use system Python.
 
 ## Configuration
 
@@ -155,6 +203,19 @@ sudo python3 -m pip install --break-system-packages <package_name>
 3. Test with minimal encoder script:
    ```bash
    sudo python3 scripts/minimal_encoder_test.py
+   ```
+
+#### IMU Not Working
+
+**Problem**: IMU tests fail with "Input/output error" or "Remote I/O error".
+
+**Solution**:
+1. Check I2C connections to GY-521 (SDA, SCL, VCC, GND)
+2. Verify I2C address with `sudo i2cdetect -y 1` (should show device at 0x68)
+3. Ensure IMU has power (3.3V or 5V)
+4. Test with comprehensive IMU tester:
+   ```bash
+   sudo python3 scripts/imu_tester.py
    ```
 
 #### Motor Controller Not Found
