@@ -31,8 +31,9 @@ def main():
     """Main application entry point"""
     # Setup logging
     setup_logging()
-    # Set core.lidar logger to DEBUG after setup_logging
-    logging.getLogger("core.lidar").setLevel(logging.DEBUG)
+    # Set core.lidar and core.slam loggers to WARNING to suppress spam
+    logging.getLogger("core.lidar").setLevel(logging.WARNING)
+    logging.getLogger("core.slam").setLevel(logging.WARNING)
     logger = logging.getLogger(__name__)
     
     # Setup signal handlers for graceful shutdown
@@ -46,7 +47,8 @@ def main():
         # Initialize robot
         logger.info("Initializing Ruohobot...")
         robot = Robot(config)
-        
+        # Run self-test before starting main loop
+        robot.self_test()
         # Start the robot
         logger.info("Starting robot main loop...")
         robot.run()

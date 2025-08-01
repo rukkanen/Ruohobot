@@ -27,7 +27,40 @@ class SensorManager:
         self.battery_voltage = 12.5  # Simulated battery voltage
         self.tilt_angle = 0.0        # Simulated tilt
         
-        self.logger.info("Sensor manager initialized (simulated sensors)")
+        # Encoder and IMU support
+        self.left_encoder = None
+        self.right_encoder = None
+        self.imu = None
+        
+        # Try to load real sensors if config present
+        enc_cfg = config.get('encoders', {})
+        if enc_cfg and 'left_pin' in enc_cfg and 'right_pin' in enc_cfg:
+            try:
+                from .encoder import Encoder
+                self.left_encoder = Encoder(
+                    pin=enc_cfg['left_pin'],
+                    pulses_per_rev=enc_cfg.get('pulses_per_rev', 20),
+                    wheel_diameter=enc_cfg.get('wheel_diameter', 0.065)
+                )
+                self.right_encoder = Encoder(
+                    pin=enc_cfg['right_pin'],
+                    pulses_per_rev=enc_cfg.get('pulses_per_rev', 20),
+                    wheel_diameter=enc_cfg.get('wheel_diameter', 0.065)
+                )
+                self.logger.info(f"Encoders initialized on pins {enc_cfg['left_pin']} and {enc_cfg['right_pin']}")
+            except Exception as e:
+                self.logger.warning(f"Encoder init failed: {e}")
+        
+        imu_cfg = config.get('imu', {})
+        if imu_cfg:
+            try:
+                from .imu import IMU
+                self.imu = IMU(i2c_address=imu_cfg.get('i2c_address', 0x68))
+                self.logger.info(f"IMU initialized at I2C address {hex(imu_cfg.get('i2c_address', 0x68))}")
+            except Exception as e:
+                self.logger.warning(f"IMU init failed: {e}")
+        
+        # Only log on error or startup
     
     def get_all_readings(self) -> Dict[str, Any]:
         """Get readings from all sensors"""
@@ -36,17 +69,33 @@ class SensorManager:
         # Update sensor readings
         self._update_sensors()
         
-        return {
+        data = {
             'battery_voltage': self.battery_voltage,
             'tilt_angle': self.tilt_angle,
             'timestamp': current_time,
             'sensors_enabled': self.sensors_enabled,
             'low_power_mode': self.low_power_mode
         }
+        # Add encoder readings if available
+        if self.left_encoder:
+            data['left_encoder_count'] = self.left_encoder.get_count()
+            data['left_encoder_distance'] = self.left_encoder.get_distance()
+        if self.right_encoder:
+            data['right_encoder_count'] = self.right_encoder.get_count()
+            data['right_encoder_distance'] = self.right_encoder.get_distance()
+        # Add IMU readings if available
+        if self.imu:
+            try:
+                data['imu'] = self.imu.get_all()
+                data['imu_temp'] = self.imu.get_temperature()
+            except Exception as e:
+                self.logger.warning(f"IMU read failed: {e}")
+        
+        return data
     
     def _update_sensors(self):
         """Update sensor readings (simulated)"""
-        self.logger.info("Updating sensor readings...")  # TEST LINE
+        # Remove repetitive sensor update log
 
         # Simulate slowly draining battery
         self.battery_voltage -= 0.0001  # Very slow drain
@@ -68,9 +117,9 @@ class SensorManager:
         """Enable/disable low power mode"""
         self.low_power_mode = enabled
         if enabled:
-            self.logger.info("Sensors entered low power mode")
+            pass  # Only log on error
         else:
-            self.logger.info("Sensors exited low power mode")
+            pass  # Only log on error
     
     def get_status(self) -> Dict[str, Any]:
         """Get sensor system status"""
@@ -83,5 +132,9 @@ class SensorManager:
     
     def shutdown(self):
         """Shutdown sensor system"""
-        self.logger.info("Sensor manager shutdown")
+        # Only log on error
         self.sensors_enabled = False
+        if self.left_encoder:
+            self.left_encoder.cleanup()
+        if self.right_encoder:
+            self.right_encoder.cleanup()

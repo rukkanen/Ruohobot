@@ -15,9 +15,9 @@ if SRC_DIR not in sys.path:
 from core.motors import MotorController
 import yaml
 
-# Use BCM numbering
-LEFT_ENCODER_PIN = 23
-RIGHT_ENCODER_PIN = 24
+# Use BCM numbering - pins from robot_config.yaml
+LEFT_ENCODER_PIN = 12
+RIGHT_ENCODER_PIN = 27
 
 left_count = 0
 right_count = 0
@@ -42,8 +42,8 @@ def setup_encoders():
     GPIO.add_event_detect(LEFT_ENCODER_PIN, GPIO.BOTH, callback=left_encoder_callback)
     print(f"[OK] Left encoder setup on GPIO{LEFT_ENCODER_PIN}")
 
-    #GPIO.setup(RIGHT_ENCODER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    #GPIO.add_event_detect(RIGHT_ENCODER_PIN, GPIO.BOTH, callback=right_encoder_callback)
+    GPIO.setup(RIGHT_ENCODER_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.add_event_detect(RIGHT_ENCODER_PIN, GPIO.BOTH, callback=right_encoder_callback)
     print(f"[OK] Right encoder setup on GPIO{RIGHT_ENCODER_PIN}")
 
 def load_motor_config():

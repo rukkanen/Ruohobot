@@ -16,6 +16,54 @@ from .safety import SafetySystem
 
 
 class Robot:
+    def self_test(self):
+        """Run a self-test of motors, encoders, and IMU. Log results and continue regardless of failures."""
+        debug = getattr(self.config, 'debug_mode', False) or getattr(self.config, 'debug', {}).get('web_debug', False)
+        results = {}
+        try:
+            # 1. Reset encoders
+            if hasattr(self.hardware.sensors, 'left_encoder') and self.hardware.sensors.left_encoder:
+                self.hardware.sensors.left_encoder.reset()
+            if hasattr(self.hardware.sensors, 'right_encoder') and self.hardware.sensors.right_encoder:
+                self.hardware.sensors.right_encoder.reset()
+            # 2. Get initial IMU reading
+            initial_accel = None
+            if hasattr(self.hardware.sensors, 'imu') and self.hardware.sensors.imu:
+                try:
+                    initial_accel = self.hardware.sensors.imu.get_accel()
+                except Exception as e:
+                    self.logger.warning(f"IMU read failed: {e}")
+            # 3. Move wheels forward a bit
+            # Only log if debug
+            self.hardware.motors.set_velocity(0.6, 0.0)  # Move forward at higher speed
+            time.sleep(1.0)
+            self.hardware.motors.stop()
+            time.sleep(0.2)
+            # 4. Check encoder counts
+            left_count = self.hardware.sensors.left_encoder.get_count() if self.hardware.sensors.left_encoder else None
+            right_count = self.hardware.sensors.right_encoder.get_count() if self.hardware.sensors.right_encoder else None
+            results['left_encoder'] = left_count is not None and left_count > 0
+            results['right_encoder'] = right_count is not None and right_count > 0
+            # Only log if debug
+            # 5. Check IMU for movement
+            moved = False
+            if initial_accel and self.hardware.sensors.imu:
+                try:
+                    new_accel = self.hardware.sensors.imu.get_accel()
+                    # Check if any axis changed by >0.2 m/s^2 (simple threshold)
+                    moved = any(abs(new_accel[axis] - initial_accel[axis]) > 0.2 for axis in new_accel)
+                except Exception as e:
+                    self.logger.warning(f"IMU read failed after move: {e}")
+            results['imu_movement'] = moved
+            # Only log if debug
+        except Exception as e:
+            self.logger.error(f"Self-test error: {e}")
+        # Log summary
+        for k, v in results.items():
+            if v:
+                pass  # Only log failures
+            else:
+                self.logger.warning(f"Self-test failed: {k}")
     """Main robot controller class"""
     
     def __init__(self, config):

@@ -23,6 +23,8 @@ def setup_logging():
         level=logging.INFO,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
+    # Ensure debug is off for less spam
+    logging.getLogger().setLevel(logging.INFO)
 
 
 def test_motor_controller():

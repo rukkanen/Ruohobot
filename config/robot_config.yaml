@@ -39,17 +39,22 @@ hardware:
 
   # Sensor Configuration
   sensors:
-
+    encoders:
+      left_pin: 12
+      right_pin: 27
+      wheel_diameter: 0.065
+      pulses_per_rev: 20
+    imu:
+      type: mpu6050
+      i2c_address: 0x68
     lidar:
       port: '/dev/ttyUSB0'
       baudrate: 230400
       enabled: true
-
     distance_scanner:
       port: '/dev/ttyUSB1'
       baudrate: 9600
       enabled: true
-
     sentinel:
       port: '/dev/ttyUSB2'
       baudrate: 115200
@@ -119,10 +124,10 @@ logging:
 # Development/Debug Settings
 debug:
   motor_simulation: false           # Use simulated motors for testing
-  sensor_simulation: true           # Use simulated sensors when hardware unavailable
-  web_debug: false                 # Enable web interface debugging
-  verbose_motor_logging: false     # Detailed motor operation logs
+  sensor_simulation: false          # Use simulated sensors when hardware unavailable
+  web_debug: false                  # Enable web interface debugging
+  verbose_motor_logging: false      # Detailed motor operation logs
 
 slam_debug:
-  store_map_locally: true
+  store_map_locally: false
   store_map_locally_interval: 5

@@ -72,7 +72,7 @@ class MotorController:
             # Initialize Motoron controller
             self.mc = motoron.MotoronI2C(bus=self.i2c_bus, address=self.i2c_address)
             self._initialize_controller()
-            self.logger.info(f"M3H550 motor controller initialized on I2C bus {self.i2c_bus}, address {self.i2c_address}")
+            # Only log on startup
         except Exception as e:
             self.logger.error(f"Failed to initialize motor controller: {e}")
             raise
@@ -100,7 +100,7 @@ class MotorController:
             # Clear any motor faults
             self.mc.clear_motor_fault_unconditional()
             
-            self.logger.info("Motoron controller initialized successfully")
+            # Only log on startup
             
         except Exception as e:
             self.logger.error(f"Error during controller initialization: {e}")
@@ -120,7 +120,7 @@ class MotorController:
         
         # Check if motor is enabled
         if not self.motor_enabled.get(motor_id, True):
-            self.logger.debug(f"Motor {motor_id} is disabled, ignoring speed command")
+            # Only log if debug
             return
         
         if self.emergency_stop_active:
@@ -137,7 +137,7 @@ class MotorController:
         try:
             self.mc.set_speed(motor_id, speed)
             self.current_speeds[motor_id] = speed
-            self.logger.debug(f"Motor {motor_id} speed set to {speed}")
+            # Only log if debug
         except Exception as e:
             self.logger.error(f"Error setting motor {motor_id} speed: {e}")
     
@@ -159,7 +159,7 @@ class MotorController:
             linear_speed: Forward/backward speed (-1.0 to 1.0)
             angular_speed: Turning speed (-1.0 to 1.0, negative = left)
         """
-        self.logger.debug(f"Setting velocity: linear={linear_speed}, angular={angular_speed}")
+        # Only log if debug
         # Convert normalized speeds to motor speeds
         max_motor_speed = self.max_speed
         
@@ -188,8 +188,7 @@ class MotorController:
         if self.motor_enabled.get(right_motor_id, True):
             self.set_speed(right_motor_id, right_motor_speed)
         
-        self.logger.debug(f"Set velocity: linear={linear_speed:.2f}, angular={angular_speed:.2f}")
-        self.logger.debug(f"Motor speeds: Left(M{left_motor_id})={left_motor_speed}, Right(M{right_motor_id})={right_motor_speed}")
+        # Only log if debug
     
     def stop(self):
         """Stop all motors gradually (using deceleration limits)"""
@@ -199,7 +198,7 @@ class MotorController:
                 if self.motor_enabled.get(motor_id, True):
                     self.mc.set_speed(motor_id, 0)
                     self.current_speeds[motor_id] = 0
-            self.logger.info("All motors stopped")
+            # Only log on user request
         except Exception as e:
             self.logger.error(f"Error stopping motors: {e}")
     
@@ -223,7 +222,7 @@ class MotorController:
         try:
             # Reinitialize controller to clear any error states
             self._initialize_controller()
-            self.logger.info("Emergency stop reset - motor control restored")
+            # Only log on user request
         except Exception as e:
             self.logger.error(f"Error resetting emergency stop: {e}")
     
@@ -286,12 +285,12 @@ class MotorController:
             # For now, return the raw processed value
             return processed
         except Exception as e:
-            self.logger.debug(f"Current sensing not available for motor {motor_id}: {e}")
+            # Only log if debug
             return 0.0
     
     def test_motors(self):
         """Test routine to verify motor operation"""
-        self.logger.info("Starting motor test routine...")
+        # Only log on user request
         
         if self.emergency_stop_active:
             self.logger.warning("Cannot run test - emergency stop active")
@@ -300,7 +299,7 @@ class MotorController:
         try:
             # Test each motor individually
             for motor_id in [1, 2, 3]:
-                self.logger.info(f"Testing motor {motor_id}...")
+                # Only log on user request
                 
                 # Forward direction
                 self.set_speed(motor_id, 200)
@@ -318,9 +317,9 @@ class MotorController:
                 self.set_speed(motor_id, 0)
                 time.sleep(0.5)
                 
-                self.logger.info(f"Motor {motor_id} test complete")
+                # Only log on user request
             
-            self.logger.info("Motor test routine completed successfully")
+            # Only log on user request
             
         except Exception as e:
             self.logger.error(f"Error during motor test: {e}")
@@ -328,13 +327,13 @@ class MotorController:
     
     def shutdown(self):
         """Graceful shutdown of motor controller"""
-        self.logger.info("Shutting down motor controller...")
+        # Only log on shutdown
         try:
             # Stop all motors
             self.stop()
             time.sleep(0.1)  # Give motors time to stop
             
             # Additional cleanup if needed
-            self.logger.info("Motor controller shutdown complete")
+            # Only log on shutdown
         except Exception as e:
             self.logger.error(f"Error during motor controller shutdown: {e}")
